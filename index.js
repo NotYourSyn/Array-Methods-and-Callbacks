@@ -1,4 +1,4 @@
-import { fifaData } from './fifa.js';
+const fifaData = require('./fifa.js');
 console.log(fifaData);
 
 
@@ -12,34 +12,38 @@ console.log(fifaData);
 (d) Away Team goals for 2014 world cup final
 (e) Winner of 2014 world cup final */
 
+//let finalsData2014 = fifaData.filter( 2014,"Home Team Name", "Away Team Name", "Home Team Goals", "Away Team Goals"); 
+//console.log(finalsData2014);
 
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
 
 function getFinals(data) {
-
-    /* code here */
-
+   return data.filter(match => match.Stage ==='Finals');
 };
-
+console.log(getfinals(fifaData));
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
-function getYears(/* code here */) {
-
-    /* code here */
+function getYears(cb, data) {
+    return cb(data).map(match => match.Year);
 
 };
 
-getYears();
+console.log(getYears(getFinals));
 
 /* Task 5: Implement a higher-order function called `getWinners`, that accepts the callback function `getFinals()` and determine the winner (home or away) of each `finals` game. Return the name of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-
-    /* code here */
+function getWinners(cb) {
+    return cb(fifaData).map(match => {
+        if(match['Home Team Goals']>match['Away Team Goals']){
+            return match['Home Team Name'];
+        }else{
+            return match['Away Team Name'];
+        }
+    });
 
 };
 
-getWinners();
+console.log(getWinners(getFinals));
 
 /* Task 6: Implement a higher-order function called `getWinnersByYear` that accepts the following parameters and returns a set of strings "In {year}, {country} won the world cup!" 
 
@@ -48,11 +52,12 @@ Parameters:
  * callback function getYears
  */
 
-function getWinnersByYear(/* code here */) {
-
+function getWinnersByYear(cb1, cb2) {
+    const years = cb2(getFinals);
+    return cb1(getFinals).map(teamName, index) => `In ${years[index]} ${teamName} won the world cup! `
 };
 
-getWinnersByYear();
+getWinnersByYear(getWinners, getYears);
 
 /* Task 7: Create a function called `getCountryWins` that takes the parameters `data` and `team initials` and returns the number of world cup wins that country has had. 
 
