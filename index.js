@@ -12,15 +12,14 @@ console.log(fifaData);
 (d) Away Team goals for 2014 world cup final
 (e) Winner of 2014 world cup final */
 
-//let finalsData2014 = fifaData.filter( 2014,"Home Team Name", "Away Team Name", "Home Team Goals", "Away Team Goals"); 
-//console.log(finalsData2014);
+let final = fifaData.filter(match => match.Stage=='Final' && match.Year === 2014);
 
 /* Task 2: Create a function called  getFinals that takes `data` as an argument and returns an array of objects with only finals data */
 
-function getFinals(data) {
-   return data.filter(match => match.Stage ==='Finals');
+function getFinals(data){
+   return data.filter(match => match.Stage ==='Final');
 };
-console.log(getfinals(fifaData));
+getFinals(fifaData);
 /* Task 3: Implement a higher-order function called `getYears` that accepts the callback function `getFinals`, and returns an array called `years` containing all of the years in the dataset */
 
 function getYears(cb, data) {
@@ -54,7 +53,7 @@ Parameters:
 
 function getWinnersByYear(cb1, cb2) {
     const years = cb2(getFinals);
-    return cb1(getFinals).map(teamName, index) => `In ${years[index]} ${teamName} won the world cup! `
+    return cb1(getFinals).map((teamName, index) => `In ${years[index]} ${teamName} won the world cup! `)
 };
 
 getWinnersByYear(getWinners, getYears);
@@ -64,19 +63,24 @@ getWinnersByYear(getWinners, getYears);
 Hint: Investigate your data to find "team initials"!
 Hint: use `.reduce` */
 
-function getCountryWins(/* code here */) {
+// function getCountryWins( data, teamIntials) {
+//     let countryWins = data.reduce((acc, match) => {
+//         if(match.Stage=== 'Final'){
+//             const winner 
+//         }
+       
+//     }
 
-    /* code here */
+// };
 
-};
-
-getCountryWins();
+// getCountryWins();
 
 /* Task 8: Write a function called `getAverageGoals` that accepts a parameter `data` and returns the the average number of home team goals and away team goals scored per match (Hint: use .reduce and do this in 2 steps) */
 
-function getAverageGoals(/* code here */) {
+function getAverageGoals(data) {
+    let homeTeamAvg = data.reduce((match, goals, index) => {
 
-    /* code here */
+    })
 
 };
 
